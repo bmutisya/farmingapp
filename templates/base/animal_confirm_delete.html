@@ -1,0 +1,16 @@
+
+{% extends 'base/main.html' %}
+{% block content %}
+<div class="delete-wrapper">
+<div class="header-bar">
+    <a href="{% url 'animals' %}">&#8592; Back</a>
+</div>
+<div class="card-body">
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this animal? "{{animal}}"</p>
+    <input  class="button"  type="submit" value="Delete">
+</form>
+</div>
+</div>
+{% endblock content%}

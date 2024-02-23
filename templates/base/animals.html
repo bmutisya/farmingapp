@@ -1,0 +1,76 @@
+{% extends 'base/main.html' %}
+
+ {% block content %} 
+ <div class="main-wrapper-content">
+ <div class="header-bar">
+    <div>
+        <h1>Hello {{ request.user|title}}</h1>
+        <h3>You have <i>{{count}}</i> Animal{{ count|pluralize:"s" }}</h3>
+    </div>
+    {% if request.user.is_authenticated %}
+   <a href="{% url 'logout' %}"> Logout</a>
+   {% else %}
+   <a href="{% url 'login' %}"> Login</a>
+   {% endif %}
+ </div>
+
+
+
+<div class="content-wrapper">
+<div class="left-side">
+  <p><a {% if request.path == '/' %} class="active" {% endif %} href="{% url 'dashboard' %}">Home</a></p>
+  <p><a {% if request.path == '/animals/' %} class="active" {% endif %} href="{% url 'animals' %}">Animal Details</a></p>
+  <p><a href="{% url 'animal-health-records' %}">Animal Health</a></p>
+  <p><a href="{% url 'milk-records' %}">Milk Records</a></p>
+
+
+</div>
+<div class="right-side">
+  <div class="add-link-section">
+        <a id="add-link"  href="{% url 'create-animal' %}">&#x2b;</a>
+</div>
+<div class="table-section">
+<table id="bootstrapdatatable" class="table table-striped table-bordered" >
+    <thead>
+        <th><input type="checkbox" id="checkall" /></th>
+        <th>ID</th>
+        <th>Animal Name</th>
+        <th>Ear Tag</th>
+        <th>Sire Id</th>
+        <th>Dam Id</th>
+        <th>Type</th>
+        <th>Color</th>
+        <th>Breeed</th>
+        <th>Description</th>
+        <th>View</th>
+        <th>Edit</th>
+        <th>Delete</th>
+     </thead>
+
+  {% for animal in animals %}
+  <tr>
+    <td><input type="checkbox" class="checkthis" /></td>
+    <td>{{animal.animal_id}}</td>
+    <td>{{animal.animal_name}}</td>
+    <td>{{animal.ear_tag}}</td>
+    <td>{{animal.sire_id}}</td>
+    <td>{{animal.dam_id}}</td>
+    <td>{{animal.animal_type}}</td>
+    <td>{{animal.color}}</td>
+    <td>{{animal.breed}}</td>
+    <td>{{animal.description}}</td>
+    
+    <th><a href="{% url 'animals' animal.id %}">View</a></th>
+    <th><a href="{% url 'update-animal' animal.id %}">Edit</a></th>
+    <th><a href="{% url 'delete-animal' animal.id %}">Delete</a></th>
+  </tr>
+  {% empty %}
+  <h3>No Animals Found</h3>
+  {% endfor %}
+</table>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock content %}

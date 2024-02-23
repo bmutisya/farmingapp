@@ -1,0 +1,46 @@
+{% extends 'base/main.html' %} 
+
+
+
+
+{% block content %}
+
+<div class="form-body">
+  <div class="header-bar">
+    <a href="{% url 'milk-records' %}">&#8592; Back</a>
+  </div>
+  <div class="card-body">
+    <h3>Add/Edit Milk Records for {{ form.instance.animal.animal_name }}</h3>
+    <form id="milkForm" method="POST" action="">
+      {% csrf_token %} 
+      {{ form.as_p }} <!-- Render the form fields -->
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+  <script>
+    $(function() {
+        $(".datepicker").datepicker();
+    });
+</script>
+
+
+{% endblock content%}
+
+
+{% comment %} {% extends 'base/main.html' %} {% block content %}
+
+<div class="form-body">
+  <div class="header-bar">
+    <a href="{% url 'milk-records' %}">&#8592; Back</a>
+  </div>
+  <div class="card-body">
+    <h3>Add/Edit Milk Records for {{ form.instance.animal.animal_name }}</h3>
+    <a href="{% url 'milk-records' %}">Go Back</a>
+    <form method="POST" action="">
+      {% csrf_token %} {{form}}
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+</div>
+
+{% endblock content%} {% endcomment %}

@@ -1,0 +1,29 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login-main-wrapper">
+<div class="login-left-side">
+ <img src="{% static 'assets/logo.png' %}" alt="">
+</div>
+
+<div class="login-right-side">
+<div class="login-wrapper">
+<div class="header-bar">
+<h1>Login</h1>
+</div>
+<div class="card-body">
+<form action="" method="POST">
+
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="button" type="submit" value="Login">
+</form>
+<p>Dont have account? <a href="{% url 'register' %}">Register</a></p>
+</div>
+</div>
+</div>
+</div>
+
+
+{% endblock content%}

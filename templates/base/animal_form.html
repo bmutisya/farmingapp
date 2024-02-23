@@ -1,0 +1,16 @@
+{% extends 'base/main.html' %} 
+{% block content %}
+<div class="form-body">
+  <div class="header-bar">
+    <a href="{% url 'animals' %}">&#8592; Back</a>
+  </div>
+
+  <div class="card-body">
+    <h1>Animal Addition Form</h1>
+    <form action="" method="POST">
+      {% csrf_token %} {{form.as_p}}
+      <input class="button" type="submit" value="Submit" />
+    </form>
+  </div>
+</div>
+{% endblock content%}

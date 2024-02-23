@@ -1,0 +1,17 @@
+{% extends 'base/main.html' %} 
+{% block content %}
+<div class="form-body">
+  <div class="header-bar">
+    <a href="{% url 'animal-health-records' %}">&#8592; Back</a>
+  </div>
+  <div class="card-body">
+<h1>Add/Edit Details for {{ form.instance.animal.animal_name }}</h1>
+<a href="{% url 'animal-health-records' %}">Go Back</a>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Submit">
+</form>
+</div>
+</div>
+{% endblock content%}
