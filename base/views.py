@@ -279,9 +279,12 @@ def DashboardView(request):
             # If the animal name doesn't exist, initialize it with the milk production
             animal_milk_records[animal_name] = record.morning_milk + record.afternoon_milk + record.evening_milk
 
+    animal_health_counts = AnimalHealth.objects.filter(animal__farmer=user).values('animal__animal_name').annotate(record_count=Count('id'))
+    animal_names = [record['animal__animal_name'] for record in animal_health_counts]
+    record_counts = [record['record_count'] for record in animal_health_counts]
     
     
-    context={'animal_type':animal_type, 'animal_type_no':animal_type_no, 'total_animals':total_animals, 'total_milk':total_milk, 'animal_milk_records': animal_milk_records }
+    context={'animal_type':animal_type, 'animal_type_no':animal_type_no, 'total_animals':total_animals, 'total_milk':total_milk, 'animal_milk_records': animal_milk_records,'animal_names': animal_names,'record_counts': record_counts, }
     
     
     return render(request,'base/dashboard.html',context)

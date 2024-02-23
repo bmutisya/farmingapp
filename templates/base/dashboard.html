@@ -59,10 +59,31 @@
 </div>
 <div class="chart-two">
     <div>
-     <canvas id="animalMilkChart" width="40" height="55"></canvas>
+     <canvas id="animalMilkChart" width="40" height="45"></canvas>
  </div>
 </div>
+<div class="chart-two">
+  <div>
+   <canvas id="healthRecordsChart" width="40" height="45"></canvas>
 </div>
+</div>
+</div>
+<div class="section3-container">
+  <div class="container-one">
+    <div class="top-part">
+    <div class="box1"></div>
+    <div class="box1"></div>
+    </div>
+    <div class="lower-part">
+      <div class="box1">kasia</div>
+    <div class="box1">kaa</div>
+    </div>
+  </div>
+  <div class="container-two">   
+  </div>
+  <div class="chart-two"> 
+  </div>
+  </div>
 <script>
     var ctx1 = document.getElementById('myChart').getContext('2d');
     var Chart1 = new Chart (ctx1, {
@@ -123,7 +144,7 @@
     // Extracting animal names and milk amounts from the data
     var animalNames = Object.keys(animalMilkRecords);
     var milkAmounts = Object.values(animalMilkRecords);
-    var arrayObjects=Object.values(animalMilkRecords);
+    var arrayObjects= Object.values(animalMilkRecords);
 
     console.log(animalNames)
     console.log(milkAmounts)
@@ -135,7 +156,7 @@
         data: {
             labels: animalNames, // Animal names as labels
             datasets: [{
-                label: 'Total Milk Production (liters)',
+                label: 'Todays Milk (ltrs)',
                 data: milkAmounts, // Milk amounts as data points
                 backgroundColor: [
                 'rgba(54, 162, 235, 1)',
@@ -162,14 +183,87 @@
                 'rgba(100, 100, 200, 1)',], // Border color
                 borderWidth: 1
             }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true // Start y-axis at 0
-                }
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Todays Milk Per Cow',
+            font: {
+              size: 20
             }
+          },
+          chartjs3d: {
+            enabled: true, // Enable 3D effect
+            alpha: 45,     // Angle of rotation
+            beta: 0        // Elevation angle
+          }
         }
+      }
+    });
+
+    var ctx4 = document.getElementById('healthRecordsChart').getContext('2d');
+    var myChart4 = new Chart(ctx4, {
+    type: 'bar',
+    data: {
+        labels: {{ animal_names|safe }},
+        datasets: [{
+            label: 'Treatments',
+            data: {{ record_counts|safe }},
+            backgroundColor: [
+               'rgba(200, 90, 200, 1)',
+                'rgba(50, 200, 100, 1)',
+                'rgba(100, 100, 200, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 205, 86, 1)',
+                'rgba(201, 203, 207, 1)',
+                'rgba(200, 90, 200, 1)',
+                'rgba(50, 200, 100, 1)',
+                'rgba(100, 100, 200, 1)',
+                ], // Blue color for bars
+                borderColor: [
+                'rgba(200, 90, 200, 1)',
+                'rgba(50, 200, 100, 1)',
+                'rgba(100, 100, 200, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 205, 86, 1)',
+                'rgba(201, 203, 207, 1)',
+                        ], // Border color
+                borderWidth: 1
+            }]
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'No of Treatments per Cow',
+            font: {
+              size: 20
+            }
+          },
+          chartjs3d: {
+            enabled: true, // Enable 3D effect
+            alpha: 45,     // Angle of rotation
+            beta: 0        // Elevation angle
+          }
+        }
+      }
     });
 
   </script>
